@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS reservas(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     cantidad TINYINT NOT NULL,
     fecha_reserva DATE NOT NULL,
+    fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    precio_total DECIMAL(5,2) NOT NULL,
+    estado ENUM('pendiente','finalizado') NOT NULL,
     id_experience INT UNSIGNED,
     FOREIGN KEY (id_experience) REFERENCES experiences (id) ON DELETE CASCADE ON UPDATE CASCADE);
 
@@ -39,23 +42,13 @@ CREATE TABLE IF NOT EXISTS reservas(
 CREATE TABLE IF NOT EXISTS usuarios_reservas(
 	PRIMARY KEY (id_user , id_reserva),
     valoracion TINYINT,
+    precio_total DECIMAL(5,2) NOT NULL,
 	id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
      id_reserva INT UNSIGNED,
     FOREIGN KEY (id_reserva) REFERENCES reservas (id) ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE TABLE IF NOT EXISTS carrito(
-	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    precio_total DECIMAL(5,2) NOT NULL);
-
-CREATE TABLE IF NOT EXISTS carrito_reservas(
-	valoracion_app TINYINT,
-	PRIMARY KEY (id_carrito , id_reserva),
-	id_carrito INT UNSIGNED,
-    FOREIGN KEY (id_carrito) REFERENCES carrito (id) ON DELETE CASCADE ON UPDATE CASCADE,
-     id_reserva INT UNSIGNED,
-    FOREIGN KEY (id_reserva) REFERENCES reservas (id) ON DELETE CASCADE ON UPDATE CASCADE);    
+   
 
 CREATE TABLE IF NOT EXISTS comentarios(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
