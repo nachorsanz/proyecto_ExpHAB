@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS users(
     telefono VARCHAR(20) NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
-    cp VARCHAR(20));
+    cp VARCHAR(20),
+    valoracion TINYINT);
 
 CREATE TABLE IF NOT EXISTS experiences(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS experiences(
     precio DECIMAL(5 , 2) NOT NULL,
 	categorias VARCHAR(25) NOT NULL,
     num_participantes INT NOT NULL,
-    disponibilidad ENUM('Si','No') NOT NULL,
+    disponibilidad BOOLEAN,
 	fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL);
 
@@ -34,20 +35,13 @@ CREATE TABLE IF NOT EXISTS reservas(
     fecha_reserva DATE NOT NULL,
     fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     precio_total DECIMAL(5,2) NOT NULL,
-    estado ENUM('pendiente','finalizado') NOT NULL,
-    id_experience INT UNSIGNED,
-    FOREIGN KEY (id_experience) REFERENCES experiences (id) ON DELETE CASCADE ON UPDATE CASCADE);
-
-
-CREATE TABLE IF NOT EXISTS usuarios_reservas(
-	PRIMARY KEY (id_user , id_reserva),
+    estado BOOLEAN,
     valoracion TINYINT,
 	id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
-     id_reserva INT UNSIGNED,
-    FOREIGN KEY (id_reserva) REFERENCES reservas (id) ON DELETE CASCADE ON UPDATE CASCADE);
+    id_experience INT UNSIGNED,
+    FOREIGN KEY (id_experience) REFERENCES experiences (id) ON DELETE CASCADE ON UPDATE CASCADE);
 
-   
 
 CREATE TABLE IF NOT EXISTS comentarios(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -61,4 +55,4 @@ CREATE TABLE IF NOT EXISTS fotos(
 	alt VARCHAR(50),
     url VARCHAR(200),
 	id_experience INT UNSIGNED,
-    FOREIGN KEY (id_experience) REFERENCES experiences (id) ON DELETE CASCADE ON UPDATE CASCADE);    
+    FOREIGN KEY (id_experience) REFERENCES experiences (id) ON DELETE CASCADE ON UPDATE CASCADE);      
