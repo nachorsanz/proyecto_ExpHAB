@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS users(
 	nombre VARCHAR(30) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     cp VARCHAR(20),
-    valoracion TINYINT);
+    valoracion TINYINT
+    foto_usuario VARCHAR(200) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS experiences(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
