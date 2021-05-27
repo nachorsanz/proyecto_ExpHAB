@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS reservas(
 CREATE TABLE IF NOT EXISTS usuarios_reservas(
 	PRIMARY KEY (id_user , id_reserva),
     valoracion TINYINT,
-    precio_total DECIMAL(5,2) NOT NULL,
 	id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
      id_reserva INT UNSIGNED,
