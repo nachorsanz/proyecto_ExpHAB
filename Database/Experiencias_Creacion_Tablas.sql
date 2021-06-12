@@ -1,12 +1,14 @@
+create database experiencias;
 
+use experiencias;
 
 
 CREATE TABLE IF NOT EXISTS users(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL UNIQUE,
     pwd VARCHAR(75) NOT NULL,
-    email VARCHAR(75) NOT NULL UNIQUE,
     rol ENUM( 'regular', 'admin') NOT NULL,
+    email VARCHAR(75) NOT NULL UNIQUE,
     dni VARCHAR(15) NOT NULL UNIQUE,
     ccc VARCHAR(40) NOT NULL,
     direccion VARCHAR(50) NOT NULL,
@@ -14,18 +16,18 @@ CREATE TABLE IF NOT EXISTS users(
 	nombre VARCHAR(30) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     cp VARCHAR(20),
-    valoracion TINYINT
-    foto_usuario VARCHAR(200) NOT NULL);
+    valoracion TINYINT,
+    foto_usuario VARCHAR(200) );
 
 CREATE TABLE IF NOT EXISTS experiences(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     descripcion TEXT NOT NULL ,
-    nombre VARCHAR(80) NOT NULL,
-    ciudad VARCHAR(30) NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
+    ciudad VARCHAR(50) NOT NULL,
     precio DECIMAL(5 , 2) NOT NULL,
 	categorias VARCHAR(25) NOT NULL,
     num_participantes INT NOT NULL,
-    disponibilidad BOOLEAN,
+    disp VARCHAR(9) NOT NULL,
 	fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL);
 
@@ -36,7 +38,7 @@ CREATE TABLE IF NOT EXISTS reservas(
     fecha_reserva DATE NOT NULL,
     fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     precio_total DECIMAL(5,2) NOT NULL,
-    estado BOOLEAN,
+    estado VARCHAR(9) NOT NULL,
     valoracion TINYINT,
 	id_user INT UNSIGNED,
     FOREIGN KEY (id_user) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
